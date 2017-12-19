@@ -93,7 +93,40 @@ listNode *deleteNode(int data, listNode *head)
 	return head;
 }
 
+listNode *reverse(listNode *head)
+{
+	listNode *nextNode, *prevNode = NULL, *pNode = head;
+	
+	while(pNode)
+	{
+		nextNode = pNode->next;
+		pNode->next = prevNode;
+		prevNode = pNode;
+		pNode = nextNode;
+	}
+	return prevNode;
+}
 
+listNode *reverseFirstn(int n, listNode *head)
+{
+	listNode *prevNode=NULL, *nextNode, *pNode=head, *firstNode=head;
+	
+	//emptylist
+	if((!head)||(n==0))
+		return head;
+	
+	for(int i=0;(i<n)&&pNode;i++)
+	{
+		nextNode = pNode->next;
+		pNode->next = prevNode;
+		prevNode = pNode;
+		pNode = nextNode;
+	}
+	
+	firstNode->next = pNode;
+	return prevNode;
+
+}
 
 void print(listNode *head)
 {
@@ -122,7 +155,12 @@ int main()
 	head = append(head,15);
 	head = prepend(head,100);
 	print(head);
-/* 
+	
+	head = reverse(head);
+ 	print(head);
+ 	head = reverseFirstn(4,head);
+ 	print(head);
+ 	
 	head = delete(15,head);
 	print(head);
 	head = delete(3,head);
@@ -130,7 +168,8 @@ int main()
 	head = delete(4,head);
 	head = delete(1,head);
 	print(head);
- */
+
+/* 
 	head = deleteNode(15,head);
 	print(head);
 	head = deleteNode(5,head);
@@ -139,6 +178,7 @@ int main()
 	print(head);
 	head = deleteNode(10,head);
 	print(head);
+ */
 
 	return 0;
 }
