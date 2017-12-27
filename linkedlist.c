@@ -145,6 +145,102 @@ void print(listNode *head)
 	}
 }
 
+
+/*
+  Merge two sorted lists A and B as one linked list
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+
+/*
+void print(Node *headA, Node *headB)
+{
+    Node *pA=headA, *pB=headB;
+    printf("List A = [ ");
+    while(pA)
+    {
+        printf("%d  ",pA->data);
+        pA = pA->next;
+    }
+    printf("]\n");
+    
+    printf("List B = [ ");
+    while(pB)
+    {
+        printf("%d  ",pB->data);
+        pB = pB->next;
+    }
+    printf("]\n\n");
+}
+
+Node* MergeLists(Node *headA, Node* headB)
+{
+    Node *pA=headA, *pB=headB, *tempA, *tempB, *prevA=headA, *prevB=headB;
+    // This is a "method-only" submission. 
+    // You only need to complete this method 
+    if ((headA == NULL)&&(headB == NULL))
+        return NULL;
+    else if ((headA == NULL)&&(headB != NULL))
+        return headB;
+    else if ((headA != NULL)&&(headB == NULL))
+        return headA;
+    
+  
+    while(pA)
+    {
+        pB = headB;
+        if (!pB)
+            return headA;
+        //prepend to pA node
+        if(pA->data > pB->data)
+        {
+            tempB = pB;
+            headB = pB->next;
+            pB->next = pA;
+            
+            if(pA==headA)
+                headA = pB;
+            else
+                prevA->next = pB;
+            prevA = pB;
+
+        }
+        //Append to pA node
+        else if((pA->data < pB->data)&&(pA->next)&&(pA->next->data > pB->data))
+        {
+            tempA = pA->next;
+            headB = pB->next;
+            pA->next = pB;
+            pB->next = tempA;
+            pA = pB;
+        }
+        else
+        {
+            //printf("pA = %d\n",pA->data);
+            
+            //is pA poiting to the last node
+            if (pA->next)
+                pA = pA->next;
+            else
+            {
+                pA->next = pB;
+                headB = pB->next;
+                pB->next = NULL;
+            }   
+             
+        }
+        //print(headA,headB);
+      
+      
+  }
+  return NULL;
+}
+*/
+
 int main()
 {
 	listNode *head = NULL;
