@@ -49,65 +49,79 @@ void insertionSort(int *arr, int len)
 	}
 }
 
+void merge(int *arr1,int len1, int *arr2, int len2, int *pArr)
+{
+	int i, j, k=0;
+
+	for(i=0,j=0; (i<len1)&&(j<len2);)
+	{
+		if(arr1[i] <= arr2[j])
+		{
+			pArr[k] = arr1[i];
+			i++; k++;
+		}
+		else
+		{
+			pArr[k] = arr2[j];
+			j++; k++;
+		}
+	}
+	if(i<len1)
+	{
+		while(i<len1)
+		{
+			pArr[k] = arr1[i];
+			i++; k++;
+		}
+	}
+
+	if(j<len2)
+	{
+		while(j<len2)
+		{
+			pArr[k] = arr2[j];
+			j++; k++;
+		}
+	}
+
+	//print pArr
+	// for(k=0; k<(len1+len2); k++)
+	// {
+	// 	printf(" %d ",pArr[k]);
+	// }
+}
+
 void mergeSort(int *arr, int l, int r)
 {
-	int i,j,k;
+	int i,j,k, len1, len2;
 
 	int *pArr = NULL;
 	int size = r-l+1;
 	int mid = l + (r-l)/2;
+	len1 = mid - l + 1;
+	len2 = r - mid;
 
-	printf("\nl = %d\tr = %d\tmid = %d\tsize = %d",l,r,mid,size);
-
+	
 	if(l==r)
 		return;
 	
+	pArr = (int *)malloc(sizeof(int)*size);
+
 	mergeSort(arr,l,mid);
 	mergeSort(arr,mid+1,r);
 	
-
-	pArr = (int *)malloc(sizeof(int)*size);
-
-	//Now merge 2 sorted subarrays
-	for(i=l,j=mid+1,k=0; (i<=mid)||(j<=r); )
-	{
-		if(arr[i]<=arr[j])
-		{
-			pArr[k] = arr[i];
-			i++;
-			k++;
-		}
-		else
-		{
-			pArr[k] = arr[j];
-			j++;
-			k++;
-		}
-	}
-	if (i<=mid)
-	{	
-		while(i<=mid)
-		{
-			pArr[k] = arr[i];
-			i++;
-			k++;
-		}
-	}
-	if (j<=r)
-	{
-		while(j<=r)
-		{
-			pArr[k] = arr[j];
-			j++;
-			k++;
-		}
-	}
+	
+	merge(arr+l, len1, arr+mid+1, len2, pArr);
 
 	//Copy in origninal arr and free pArr
-	for(i=0,k=0;i<size;i++,k++)
-		arr[i] = pArr[k];
-
+	for(i=0,j=l,k=0;i<size;i++,j++,k++)
+	{
+		arr[j] = pArr[k];
+	}
+	
 }
+
+
 
 int main()
 {
@@ -119,4 +133,5 @@ int main()
 	mergeSort(arr,0,len-1);
 	print(arr,len);
 
+	
 }
