@@ -57,15 +57,16 @@ void mergeSort(int *arr, int l, int r)
 	int size = r-l+1;
 	int mid = l + (r-l)/2;
 
-	if((l==mid)||((mid+1)==r))
-		return;
 	printf("\nl = %d\tr = %d\tmid = %d\tsize = %d",l,r,mid,size);
-	//call mergeSort on the 2 subarrays
+
+	if(l==r)
+		return;
+	
 	mergeSort(arr,l,mid);
 	mergeSort(arr,mid+1,r);
 	
 
-	/*pArr = (int *)malloc(sizeof(int)*size);
+	pArr = (int *)malloc(sizeof(int)*size);
 
 	//Now merge 2 sorted subarrays
 	for(i=l,j=mid+1,k=0; (i<=mid)||(j<=r); )
@@ -104,7 +105,7 @@ void mergeSort(int *arr, int l, int r)
 
 	//Copy in origninal arr and free pArr
 	for(i=0,k=0;i<size;i++,k++)
-		arr[i] = pArr[k];*/
+		arr[i] = pArr[k];
 
 }
 
