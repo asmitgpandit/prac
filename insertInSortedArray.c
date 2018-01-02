@@ -121,17 +121,63 @@ void mergeSort(int *arr, int l, int r)
 	
 }
 
+void shiftToRight(int *pArr, int len, int from)
+{
+	for(int i=len-1; i>=from; i--)
+	{
+		pArr[i+1] = pArr[i];
+	}
+}
+
+void insertInSortedArray(int *pArr, int len, int num)
+{
+	int i=0;
+
+	if(num < pArr[0])
+	{
+		shiftToRight(pArr,len,0);
+		pArr[0] = num;
+	}
+
+	else
+	{
+		for(;i<len-1;i++)
+		{	
+			if((i==(len-1))&&(pArr[len-1] == NULL))
+			{
+				pArr[len-1] = num;
+				break;
+			}
+
+			if((num >= pArr[i])&&(num <pArr[i+1]))
+			{
+				shiftToRight(pArr,len,i+1);
+				pArr[i+1] = num;
+				break;
+			}
+		}
+		
+	}
+
+}
 
 
 int main()
 {
-	int arr[] = {5,1,55,2,98,10,4,3,8,22};
+	int arr[11] = {5,1,55,2,98,10,4,3,8,22};
 	int len = sizeof(arr)/sizeof(arr[1]);
-	print(arr,len);
+	//print(arr,len);
 	//bubbleSort(arr,len);
 	//insertionSort(arr,len);
-	mergeSort(arr,0,len-1);
-	print(arr,len);
+	//mergeSort(arr,0,len-1);
+	//print(arr,len);
+
+	int arr2[6] = {1,2,4,5,6};
+	print(arr2,6);
+	insertInSortedArray(arr2,6,3);
+	print(arr2,6);
+
+
 
 	
 }
