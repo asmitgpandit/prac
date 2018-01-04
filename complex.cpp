@@ -5,13 +5,18 @@ class B
 {
 public:
 	int b;
-	B(){}
-	B(int num)
+	// B()
+	// {
+	// 	cout<<"B's default constructor"<<endl;
+	// }
+	B(int num=0)
 	{
 		cout << "B's parameterised constructor" <<endl;
 		b=num;
 	}
 };
+
+
 class complex
 {
 	int real;
@@ -21,12 +26,12 @@ class complex
 public:
 	complex(): real(1),imag(1), obj(0)
 	{
-		cout<<"default-constructor"<<endl;
+		cout<<"Complex's default-constructor\n"<<endl;
 	}
 	complex(int real_no, int imag_no): real(real_no), imag(imag_no)
 	{
 
-		cout<<"parameterized constructor"<<endl;
+		cout<<"Complex's parameterized constructor\n"<<endl;
 	}
 	//~complex(){cout<<"destructor"<<endl;}
 	void show() const
@@ -55,9 +60,10 @@ public:
 
 int main()
 {
-	complex a(3,4), b,c;
-	c.show();
-	c = a;
-	(b+a).show();
+	complex a(3,4);
+	// c.show();
+	// c = a;
+	// c.show();
+	// (b+a).show();
 	return 0;
 }
