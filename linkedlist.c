@@ -146,100 +146,47 @@ void print(listNode *head)
 }
 
 
-/*
-  Merge two sorted lists A and B as one linked list
-  Node is defined as 
-  struct Node
-  {
-     int data;
-     struct Node *next;
-  }
-*/
-
-/*
-void print(Node *headA, Node *headB)
+void reverse_group(listNode **head, int start_pos, int end_pos)
 {
-    Node *pA=headA, *pB=headB;
-    printf("List A = [ ");
-    while(pA)
-    {
-        printf("%d  ",pA->data);
-        pA = pA->next;
-    }
-    printf("]\n");
-    
-    printf("List B = [ ");
-    while(pB)
-    {
-        printf("%d  ",pB->data);
-        pB = pB->next;
-    }
-    printf("]\n\n");
-}
+	listNode *prev_start = NULL, *next = NULL, *curr = NULL, *prev = NULL, *prev_end = NULL, *start = *head, *end = *head, *end_next = NULL;
+	int count = start_pos-1;
 
-Node* MergeLists(Node *headA, Node* headB)
-{
-    Node *pA=headA, *pB=headB, *tempA, *tempB, *prevA=headA, *prevB=headB;
-    // This is a "method-only" submission. 
-    // You only need to complete this method 
-    if ((headA == NULL)&&(headB == NULL))
-        return NULL;
-    else if ((headA == NULL)&&(headB != NULL))
-        return headB;
-    else if ((headA != NULL)&&(headB == NULL))
-        return headA;
-    
-  
-    while(pA)
-    {
-        pB = headB;
-        if (!pB)
-            return headA;
-        //prepend to pA node
-        if(pA->data > pB->data)
-        {
-            tempB = pB;
-            headB = pB->next;
-            pB->next = pA;
-            
-            if(pA==headA)
-                headA = pB;
-            else
-                prevA->next = pB;
-            prevA = pB;
 
-        }
-        //Append to pA node
-        else if((pA->data < pB->data)&&(pA->next)&&(pA->next->data > pB->data))
-        {
-            tempA = pA->next;
-            headB = pB->next;
-            pA->next = pB;
-            pB->next = tempA;
-            pA = pB;
-        }
-        else
-        {
-            //printf("pA = %d\n",pA->data);
-            
-            //is pA poiting to the last node
-            if (pA->next)
-                pA = pA->next;
-            else
-            {
-                pA->next = pB;
-                headB = pB->next;
-                pB->next = NULL;
-            }   
-             
-        }
-        //print(headA,headB);
-      
-      
-  }
-  return NULL;
+	//Set the start and the prev_start pointers
+	while(start && (count >0))
+	{	
+		prev_start = start;
+		start = start->next;
+		count--;
+	}
+
+	//Set the end pointer
+	count = end_pos-1;
+	while(end && (count>0))
+	{
+		prev_end = end;
+		end = end->next;
+		count--;
+	}
+	end_next = end->next;
+
+	//reverse the links in between
+	curr = start->next;
+	prev = start;
+	while(curr!=end_next)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+
+	//Adjust the prev_start and 
+	prev_start->next = end;
+	start->next = end_next;
+
+
 }
-*/
 
 int main()
 {
@@ -252,18 +199,18 @@ int main()
 	head = prepend(head,100);
 	print(head);
 	
-	head = reverse(head);
- 	print(head);
- 	head = reverseFirstn(4,head);
- 	print(head);
+	// head = reverse(head);
+ // 	print(head);
+ // 	head = reverseFirstn(4,head);
+ // 	print(head);
  	
-	head = delete(15,head);
-	print(head);
-	head = delete(3,head);
-	print(head);
-	head = delete(4,head);
-	head = delete(1,head);
-	print(head);
+	// head = delete(15,head);
+	// print(head);
+	// head = delete(3,head);
+	// print(head);
+	// head = delete(4,head);
+	// head = delete(1,head);
+	// print(head);
 
 /* 
 	head = deleteNode(15,head);
@@ -275,6 +222,7 @@ int main()
 	head = deleteNode(10,head);
 	print(head);
  */
-
+	reverse_group(&head,2,4);
+	print(head);
 	return 0;
 }
