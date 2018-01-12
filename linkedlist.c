@@ -222,7 +222,12 @@ int main()
 	head = deleteNode(10,head);
 	print(head);
  */
-	reverse_group(&head,2,4);
+
+/*	
+	For reverse a group
+*/
+	reverse_group(&head,1,4);
 	print(head);
+
 	return 0;
 }
