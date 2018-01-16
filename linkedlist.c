@@ -188,6 +188,37 @@ void reverse_group(listNode **head, int start_pos, int end_pos)
 
 }
 
+listNode *interleave(listNode **head1, listNode **head2)
+{
+	listNode *pNode1 = *head1, *pNode2 = *head2;
+	listNode *p1next, *p2next;
+
+	if (!pNode1)
+		return pNode2;
+	else
+		return pNode1;
+	
+	while(pNode1->next && pNode2->next) 
+	{
+		p1next = pNode1->next;
+		p2next = pNode2->next;
+		pNode1->next = pNode2;
+		pNode2->next = p1next;
+		pNode1 = p1next;
+		pNode2 = p2next;
+	}
+	if(!pNode1->next)
+		pNode1->next = pNode2;
+
+	if(!pNode2->next)
+	{
+		p1next = pNode1->next;
+		pNode1->next = pNode2;
+		pNode2->next = p1next;
+	}
+	return *head1;
+}
+
 int main()
 {
 	listNode *head = NULL;
@@ -225,9 +256,21 @@ int main()
 
 /*	
 	For reverse a group
-*/
+
 	reverse_group(&head,1,4);
 	print(head);
+*/
+	listNode *head2 = NULL;
+	head2 = append(head2,19);
+	head2 = append(head2,50);
+	head2 = prepend(head2,120);
+	head2 = append(head2,1);
+	head2 = prepend(head2,102);
+	head2 = append(head2,13);
+	head2 = append(head2,55);
+	print(head2);
 
+	head2 = interleave(&head, &head2);
+	print(head2);
 	return 0;
 }
