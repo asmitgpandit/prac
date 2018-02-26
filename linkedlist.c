@@ -219,15 +219,112 @@ listNode *interleave(listNode **head1, listNode **head2)
 	return *head1;
 }
 
+listNode* deleteDuplicates(listNode* head) 
+{
+    listNode *next, *pNode = head;
+    
+    while(pNode->next)
+    {
+        next = pNode->next;
+        if(pNode->data == next->data)
+        {
+            pNode->next = next->next;
+            free(next);
+        }
+        else
+        	pNode = pNode->next;
+    }
+    return head;
+}
+
+listNode* reverseBetween(listNode* head, int m, int n) 
+{
+    listNode *pNode = head, *firstPrev, *lastNext, *prev=NULL, *next, *first, *last;
+    int count=0;
+    
+    while(pNode)
+    {
+        count++;
+        next = pNode->next;
+        
+        if(m == n)
+        	return head;
+
+        if(count == m)
+        {
+            first = pNode;
+            firstPrev = prev;
+        }
+        if (count == n)
+        {
+            last = pNode;
+            lastNext = pNode->next;
+        }
+        if ((count>m)&&(count<=n))
+        {
+            pNode->next = prev;
+        }
+        
+        prev = pNode;
+        pNode = next;
+    }
+    if(firstPrev)
+    	firstPrev->next = last;
+    else
+    	head = last;
+    first->next = lastNext;
+    
+    return head;
+}
+
+listNode* wipeDuplicates2(listNode* head) 
+{
+    listNode *pNode=head, *prev=NULL, *next; 
+    
+    if(!pNode)
+        return NULL;
+    
+    while(pNode && pNode->next)
+    {
+        next = pNode->next;
+        
+        if(pNode->data == next->data)
+        {
+            while(pNode->data == next->data)
+            {
+                pNode->next = next->next;
+                free(next);
+                next = pNode->next;
+            }
+            //delete self
+            if(prev)
+                prev->next = next;
+            else
+                head = next;
+            free(pNode);
+            pNode = next;
+        }
+        else
+        {
+	        prev = pNode;
+	        pNode = next;
+        }
+    }
+    return head;
+}
+
 int main()
 {
 	listNode *head = NULL;
 	
-	head = append(head,9);
+	//head = append(head,2);
 	head = append(head,5);
-	head = prepend(head,10);
+	head = append(head,5);
+	head = append(head,5);
+	head = append(head,10);
 	head = append(head,15);
-	head = prepend(head,100);
+	head = append(head,15);
+	head = append(head,100);
 	print(head);
 	
 	// head = reverse(head);
@@ -260,6 +357,11 @@ int main()
 	reverse_group(&head,1,4);
 	print(head);
 */
+/*	
+	head = reverseBetween(head,1,4);
+	print(head);
+*/
+/* for Interleave
 	listNode *head2 = NULL;
 	head2 = append(head2,19);
 	head2 = append(head2,50);
@@ -272,5 +374,14 @@ int main()
 
 	head2 = interleave(&head, &head2);
 	print(head2);
+*/
+/* for deleteDuplicates()	
+	deleteDuplicates(head);
+	print(head);
+*/
+/*
+	head = wipeDuplicates2(head);
+	print(head);
+*/
 	return 0;
 }
