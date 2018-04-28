@@ -46,6 +46,7 @@ int rightmostSetBitPos(uint32_t num)
 }
 
 
+
 int main()
 {
 	int x =15;
